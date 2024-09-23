@@ -3,10 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SPGTea</title>
+    <title>すぱげてー</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .links a {
+            display: inline-block;
+            margin: 10px;
+            padding: 12px 24px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+        .links a:hover::before {
+            width: 100%;
+        }
+        .links a.soundcloud {
+            background-color: #1DB954;
+        }
+        .links a.soundcloud::before {
+            background-color: #ff7700;
+        }
+        .links a.twitter {
+            background: linear-gradient(to bottom, #1DA1F2 50%, #000000 50%);
+            background-size: 100% 200%;
+            background-position: top;
+        }
+        .links a.twitter::before {
+            background: linear-gradient(to bottom, #1DA1F2 50%, #000000 50%);
+            background-size: 100% 200%;
+            background-position: bottom;
+        }
+        .links a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        #cursor-follow {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8);
+            pointer-events: none;
+            z-index: 9999;
+            transition: 0.05s;
+            box-shadow: 0 0 20px 10px rgba(255, 255, 255, 0.3);
+        }
+    </style>
 </head>
 <body>
-    <h1>SPGTea</h1>
-    <p>https://twitter.com/SPGTea</p>
+    <div id="cursor-follow"></div>
+    <div class="container">
+        <h1>SPGTea</h1>
+        <div class="links">
+            <a href="https://soundcloud.com/spgtea" target="_blank" class="soundcloud">SoundCloud</a>
+            <a href="https://twitter.com/spgtea" target="_blank" class="twitter">Twitter</a>
+        </div>
+    </div>
+    <script>
+        const cursorFollow = document.getElementById('cursor-follow');
+        let mouseX = 0, mouseY = 0;
+        let cursorX = 0, cursorY = 0;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+        });
+
+        function animate() {
+            let dx = mouseX - cursorX;
+            let dy = mouseY - cursorY;
+            
+            cursorX += dx * 0.3;
+            cursorY += dy * 0.3;
+            
+            cursorFollow.style.left = (cursorX - 10) + 'px';
+            cursorFollow.style.top = (cursorY - 10) + 'px';
+            
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
 </body>
 </html>
